@@ -1,5 +1,19 @@
-console.log("Welcome to the matrix multiplier.");
+/**
+  Title: script.js
+  Author: Ryan Samarajeewa
+  Date: 11/13/2015
+  REQUIRED: jQuery
+  Description: The script for providing functionality
+  for the matrix multiplication calculator, which takes
+  two matrices A and B to produce Matrix C.
+*/
 
+/**
+  purpose
+    Initialize onclick() function for the submit button
+  preconditions
+    jQuery is properly loaded
+*/
 $(function() {
 
   $( "#submitDim" ).click(function() {
@@ -11,6 +25,13 @@ $(function() {
 
 });
 
+/**
+  purpose
+    Dynamically generate a div containing input fields
+    for entering values of Matrix A and B.
+  preconditions
+    dimentions contains legal dimentions for matrix multiplication
+*/
 function genMatrixInputFields(dimentions){
   $("body").append("<div class=\"inputField\"></div>");
   $(".inputField").append("<h3>Matrix A</h3>");
@@ -39,6 +60,13 @@ function genMatrixInputFields(dimentions){
 
 }
 
+/**
+  purpose
+    Read values provided by the dropdown menus to create
+    dimentions for Matrix A and B
+  preconditions
+    Each dropdown has selected values
+*/
 function getDimentions(){
   var dimentions = [[1,1],[1,1]];
   dimentions[0][0] = Number($( "#Arows" ).val());
@@ -48,6 +76,13 @@ function getDimentions(){
   return dimentions;
 }
 
+/**
+  purpose
+    Calcualtes the product of two matrices
+  preconditions
+    matrixK and matrixJ are legal matrices for
+    multiplication
+*/
 function calculateProduct(matrixK, matrixJ){
   var matrix = new Array();
   var dotProduct = 0;
