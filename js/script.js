@@ -17,48 +17,26 @@
 $(function() {
 
   $( "#submitDim" ).click(function() {
-    //console.log("clicked");
-    var dimentions = getDimentions();
-    $( ".selectDimentions" ).empty();
-    genMatrixInputFields(dimentions);
+
+    var dimentions = getDimentions();//get dimentions
+    $( ".selectDimentions" ).empty();//clear the dimention selection div
+    genMatrixInputFields(dimentions);//generate input fields
+
+    $("#calculate").click(function(){
+
+      //console.log("calculate button was clicked.");
+      var matrixA = getMatrix(dimentions[0], "A");
+      var matrixB = getMatrix(dimentions[1], "B");
+      var matrixC = calculateProduct(matrixA, matrixB);
+
+    });
+
   });
 
+
+
+
 });
-
-/**
-  purpose
-    Dynamically generate a div containing input fields
-    for entering values of Matrix A and B.
-  preconditions
-    dimentions contains legal dimentions for matrix multiplication
-*/
-function genMatrixInputFields(dimentions){
-  $("body").append("<div class=\"inputField\"></div>");
-  $(".inputField").append("<h3>Matrix A</h3>");
-  $(".inputField").append("<br>");
-  console.log(dimentions[0][0]);
-  console.log(dimentions[0][1]);
-  for(var i = 0; i < dimentions[0][0]; i++){
-    for(var j = 0; j < dimentions[0][1]; j++){
-      $(".inputField").append("<input type=\"text\" name=\"mytext\"/>");
-      //console.log(i + " " + j);
-    }
-    $(".inputField").append("<br>");
-  }
-
-  $(".inputField").append("<h3>Matrix B</h3>");
-  $(".inputField").append("<br>");
-
-  for(var i = 0; i < dimentions[1][0]; i++){
-    for(var j = 0; j < dimentions[1][1]; j++){
-      $(".inputField").append("<input type=\"text\" name=\"mytext\"/>");
-    }
-    $(".inputField").append("<br>");
-  }
-
-  $(".inputField").append("<button id=\"calcualte\">Calculate</button>")
-
-}
 
 /**
   purpose
@@ -74,6 +52,62 @@ function getDimentions(){
   dimentions[1][0] = Number($( "#Brows" ).val());
   dimentions[1][1] = Number($( "#Bcolumns" ).val());
   return dimentions;
+}
+
+/**
+  purpose
+    Dynamically generate a div containing input fields
+    for entering values of Matrix A and B
+  preconditions
+    dimentions contains legal dimentions for matrix multiplication
+    dimentions is an array of the form [[# rows in A, # columns in A], [# rows in B, # columns in B]]
+*/
+function genMatrixInputFields(dimentions){
+  $("body").append("<div class=\"inputField\"></div>");
+  $(".inputField").append("<h3>Matrix A</h3>");
+  $(".inputField").append("<br>");
+  console.log(dimentions[0][0]);
+  console.log(dimentions[0][1]);
+  for(var i = 0; i < dimentions[0][0]; i++){
+    for(var j = 0; j < dimentions[0][1]; j++){
+
+      $(".inputField").append("<input type=\"text\" id=\"A" + i + "" + j + "\"/>");
+
+    }
+    $(".inputField").append("<br>");
+  }
+
+  $(".inputField").append("<h3>Matrix B</h3>");
+  $(".inputField").append("<br>");
+
+  for(var i = 0; i < dimentions[1][0]; i++){
+    for(var j = 0; j < dimentions[1][1]; j++){
+      $(".inputField").append("<input type=\"text\" id=\"B" + i + "" + j + "\"/>");
+    }
+    $(".inputField").append("<br>");
+  }
+
+  $(".inputField").append("<button id=\"calculate\">Calculate</button>")
+
+}
+
+/**
+  purpose
+    Collect user input from input fields and
+    convert them to a two dimentional array
+  preconditions
+    All input fields contain integers
+*/
+function getMatrix(dimentions, input){
+  var matrix = new Array();
+  for(var i = 0; i < dimentions[0]; i++){
+    matrix[i] = []
+    for(var j = 0; j < dimentions[1]; j++){
+      matrix[i][j] = Number($( "#"+input+i+""+j ).val());
+    }
+  }
+
+  return matrix;
 }
 
 /**
