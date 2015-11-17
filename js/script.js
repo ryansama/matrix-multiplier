@@ -23,11 +23,19 @@ $(function() {
     genMatrixInputFields(dimentions);//generate input fields
 
     $("#calculate").click(function(){
-
+      $(".matrixC").remove();
       //console.log("calculate button was clicked.");
       var matrixA = getMatrix(dimentions[0], "A");
       var matrixB = getMatrix(dimentions[1], "B");
       var matrixC = calculateProduct(matrixA, matrixB);
+      $(".inputField").append("<div class=\"matrixC\"></div>");
+      $(".matrixC").append("<h3>Matrix C</h3>");
+      for(var i = 0; i < matrixC.length; i++){
+        for(var j = 0; j < matrixC[0].length; j++){
+          $(".matrixC").append(matrixC[i][j] + "&ensp;");
+        }
+        $(".matrixC").append("<br>");
+      }
 
     });
 
@@ -66,8 +74,8 @@ function genMatrixInputFields(dimentions){
   $("body").append("<div class=\"inputField\"></div>");
   $(".inputField").append("<h3>Matrix A</h3>");
   $(".inputField").append("<br>");
-  console.log(dimentions[0][0]);
-  console.log(dimentions[0][1]);
+  //console.log(dimentions[0][0]);
+  //console.log(dimentions[0][1]);
   for(var i = 0; i < dimentions[0][0]; i++){
     for(var j = 0; j < dimentions[0][1]; j++){
 
@@ -122,6 +130,7 @@ function calculateProduct(matrixK, matrixJ){
   var dotProduct = 0;
 
   for(var i = 0; i < matrixK.length; i++){
+    matrix[i] = [];
     for(var k = 0; k < matrixJ[0].length;k++){
       for(var j = 0; j < matrixK[0].length; j++){
         dotProduct += matrixK[i][j] * matrixJ[j][k];
@@ -129,6 +138,8 @@ function calculateProduct(matrixK, matrixJ){
       matrix[i][k] = dotProduct;
       dotProduct = 0;
     }
-   }
+  }
+
+  return matrix;
 
 }
