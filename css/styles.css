@@ -2,3 +2,11 @@ input{
   margin: 3px 10px 3px 10px;
   width: 30px;
 }
+
+button{
+  margin:15px 7px 15px 7px;
+}
+
+.matrixC{
+  margin:10px;
+}

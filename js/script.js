@@ -16,25 +16,27 @@
 */
 $(function() {
 
-  $( "#submitDim" ).click(function() {
+  $("#submitDim").click(function() {
 
     var dimentions = getDimentions();//get dimentions
-    $( ".selectDimentions" ).empty();//clear the dimention selection div
+    $(".selectDimentions").empty();//clear the dimention selection div
     genMatrixInputFields(dimentions);//generate input fields
 
     $("#calculate").click(function(){
       $(".matrixC").remove();
-      //console.log("calculate button was clicked.");
+
       var matrixA = getMatrix(dimentions[0], "A");
       var matrixB = getMatrix(dimentions[1], "B");
       var matrixC = calculateProduct(matrixA, matrixB);
-      $(".inputField").append("<div class=\"matrixC\"></div>");
+
       $(".matrixC").append("<h3>Matrix C</h3>");
+      $(".inputField").append("<div class=\"matrixC\"></div>");
+
       for(var i = 0; i < matrixC.length; i++){
         for(var j = 0; j < matrixC[0].length; j++){
-          $(".matrixC").append(matrixC[i][j] + "&ensp;");
+          $(".matrixC").append(matrixC[i][j] + "&ensp;&ensp;");
         }
-        $(".matrixC").append("<br>");
+        $(".matrixC").append("<br><br>");
       }
 
     });
@@ -141,5 +143,13 @@ function calculateProduct(matrixK, matrixJ){
   }
 
   return matrix;
+
+}
+
+/**
+  purpose
+   Return the user to the matrix dimention select scene
+*/
+function reset(){
 
 }
