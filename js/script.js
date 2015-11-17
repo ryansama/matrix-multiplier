@@ -15,31 +15,41 @@
     jQuery is properly loaded
 */
 $(function() {
-
+  $( ".dimentionAlert" ).hide();
   $("#submitDim").click(function() {
-
     var dimentions = getDimentions();//get dimentions
-    $(".selectDimentions").empty();//clear the dimention selection div
-    genMatrixInputFields(dimentions);//generate input fields
 
-    $("#calculate").click(function(){
-      $(".matrixC").remove();
+    //check if # columns in A = # rows in B
+    if(dimentions[0][1]!=dimentions[1][0]){
 
-      var matrixA = getMatrix(dimentions[0], "A");
-      var matrixB = getMatrix(dimentions[1], "B");
-      var matrixC = calculateProduct(matrixA, matrixB);
+      $( ".dimentionAlert" ).show();
+      
+    }else{
 
-      $(".matrixC").append("<h3>Matrix C</h3>");
-      $(".inputField").append("<div class=\"matrixC\"></div>");
+      $(".selectDimentions").empty();//clear the dimention selection div
+      genMatrixInputFields(dimentions);//generate input fields
 
-      for(var i = 0; i < matrixC.length; i++){
-        for(var j = 0; j < matrixC[0].length; j++){
-          $(".matrixC").append(matrixC[i][j] + "&ensp;&ensp;");
+      $("#calculate").click(function(){
+        $(".matrixC").remove();
+
+        var matrixA = getMatrix(dimentions[0], "A");
+        var matrixB = getMatrix(dimentions[1], "B");
+        var matrixC = calculateProduct(matrixA, matrixB);
+
+        $(".inputField").append("<h3>Matrix C</h3>");
+        $(".inputField").append("<div class=\"matrixC\"></div>");
+
+        for(var i = 0; i < matrixC.length; i++){
+          for(var j = 0; j < matrixC[0].length; j++){
+            $(".matrixC").append(matrixC[i][j] + "&ensp;&ensp;");
+          }
+          $(".matrixC").append("<br><br>");
         }
-        $(".matrixC").append("<br><br>");
-      }
 
-    });
+      });
+
+    }
+
 
   });
 
@@ -74,6 +84,11 @@ function getDimentions(){
 */
 function genMatrixInputFields(dimentions){
   $("body").append("<div class=\"inputField\"></div>");
+  $(".inputField").append("<button id=\"reset\">< Re-Select Dimentions</button>");
+  $('#reset').click(function() {
+    location.reload();
+  });
+
   $(".inputField").append("<h3>Matrix A</h3>");
   $(".inputField").append("<br>");
   //console.log(dimentions[0][0]);
@@ -143,13 +158,5 @@ function calculateProduct(matrixK, matrixJ){
   }
 
   return matrix;
-
-}
-
-/**
-  purpose
-   Return the user to the matrix dimention select scene
-*/
-function reset(){
 
 }
