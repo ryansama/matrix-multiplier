@@ -23,20 +23,21 @@ $(function() {
     if(dimentions[0][1]!=dimentions[1][0]){
 
       $( ".dimentionAlert" ).show();
-      
+
     }else{
 
       $(".selectDimentions").empty();//clear the dimention selection div
       genMatrixInputFields(dimentions);//generate input fields
 
       $("#calculate").click(function(){
+        $(".matrixCheader").remove();
         $(".matrixC").remove();
 
         var matrixA = getMatrix(dimentions[0], "A");
         var matrixB = getMatrix(dimentions[1], "B");
         var matrixC = calculateProduct(matrixA, matrixB);
 
-        $(".inputField").append("<h3>Matrix C</h3>");
+        $(".inputField").append("<h3 class=\"matrixCheader\">Matrix C</h3>");
         $(".inputField").append("<div class=\"matrixC\"></div>");
 
         for(var i = 0; i < matrixC.length; i++){
@@ -84,7 +85,7 @@ function getDimentions(){
 */
 function genMatrixInputFields(dimentions){
   $("body").append("<div class=\"inputField\"></div>");
-  $(".inputField").append("<button id=\"reset\">< Re-Select Dimentions</button>");
+  $(".inputField").append("<button id=\"reset\">< Reselect Dimentions</button>");
   $('#reset').click(function() {
     location.reload();
   });
