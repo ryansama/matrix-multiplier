@@ -1,3 +1,28 @@
+body{
+  background-color: #e9e9e9;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+h1{
+  font-family: 'Playfair Display', serif;
+  font-size: 50pt;
+  padding-left: 40px;
+}
+
+h3{
+  font-family: 'Playfair Display', serif;
+  padding-left: 40px;
+}
+
+p{
+  font-family: 'Playfair Display', serif;
+  font-weight: lighter;
+}
+.diff-font{
+  font-family: 'Playfair Display', serif;
+  font-weight: lighter;
+}
 input{
   margin: 3px 10px 3px 10px;
   width: 30px;
